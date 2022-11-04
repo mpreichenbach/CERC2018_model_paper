@@ -47,11 +47,11 @@
 
 	\subsection{Movement Modeling}
 	
-	In the last two decades, methods to collect highly detailed data on animal movements have become easily accessible (McConnell et al. 2010, Tomkiewicz et al. 2010, cited in McClintock 2012). This has led to rapid development in state-space models of animal behavior, and of tools to allow non-specialists to implement the models (Johnson2008, McClintock2012, Michelot2016, Whoriskey2017, McClintockMichelot2018paper).
+	In the last two decades, methods to collect highly detailed data on animal movements have become easily accessible \cite{McConnell2010, Tomkiewicz2010}. This has led to rapid development in state-space models of animal behavior, and of tools to allow non-specialists to implement the models (\cite{Johnson2008, McClintock2012, Michelot2016, Whoriskey2017, McClintock2018}).
 	
 	We used hidden Markov models to study the effect of environmental covariates on carp behavior; we were primarily interested in the effects of sound type ($100$hp boat-motor or the engineered signals) and sound intensity on carp behavior. There has been limited research on this topic, but one recent paper (Faulkner et al, unpublished) found that sound-types were associated with changes to the behavioral states of carp. However, the authors did not incorporate a sound intensity covariate.
 	
-	We performed the data-processing and modeling in R (R Core Team 2022), primarily using the momentuHMM package (McClintockMichelot2018doc) for location estimation and model fitting. We note that momentuHMM relies heavily on the crawl (Johnson2018) and moveHMM (Michelot2016) packages.
+	We performed the data-processing and modeling in \texttt{R} (R Core Team 2022), primarily using the \texttt{momentuHMM} package (\cite{McClintock2018}) for location estimation and model fitting. We note that momentuHMM relies heavily on the \texttt{crawl} \cite{crawl} and \texttt{moveHMM} \cite{Michelot2016} packages.
 
 \section{2018 CERC Pond Study}
 
