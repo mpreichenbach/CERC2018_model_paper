@@ -41,7 +41,7 @@
 	
 	The electric barrier installed in the Chicago Area Waterways System (CAWS) has significantly mitigated the upstream movement of silver carp (Parker2016). However, electrical deterrents are not species-specific (Reynolds1996, Dolan2003), and thus can impede the migratory behavior of native species. In addition to these spillover ecological effects, electrical deterrents are unsuited to places which humans frequent for recreation and navigation, due to the danger which they pose.
 	
-	Acoustic deterrents offer the possibility of selectively targeting silver carp, while posing less risk to humans. A number of studies have shown that a broad-frequency $100$hp outboard motor sound repeatedly deterred silver carp, but were not deterred by pure tones (Vetter2015, 2017, Murchy2017). Additionally, Dennis2019 found that a $40$hp sound, and a proprietery sound, deterred bigheaded carp (which silver carp belong to) as they attempted to pass through a flume. In both of these cases, the carps stopped responding to the deterrent by the end of the study, suggesting habituation or fatigue.
+	Acoustic deterrents offer the possibility of selectively targeting silver carp, while posing less risk to humans. A number of studies have shown that a broad-frequency $100$hp outboard motor sound repeatedly deterred silver carp, but were not deterred by pure tones (Vetter2015, 2017, Murchy2017). Additionally, Dennis2019 found that a $40$hp sound, and a proprietary sound, deterred bigheaded carp (which silver carp belong to) as they attempted to pass through a flume. In both of these cases, the carps stopped responding to the deterrent by the end of the study, suggesting habituation or fatigue.
 	
 	These studies indicate that multi-frequency acoustic signals may deter silver carp, but their effectiveness under a more natural setting remains unknown. These boat-motor sounds also come with energetic demands and subsequent wear on the sound projectors which more compatible signals could lessen. To this end, we study the response of silver carp in a pond study to three acoustic stimuli: a $100$hp outboard motor sound, as in (Vetter2015, 2017, Murchy2017), along with two engineered sounds. In addition to studying the response of carp at the onset of the acoustic stimulus, we also study changes to their response over a 72-hour period. We hypothesized that silver carp would exhibit changes to their behavioral state at the onset of the stimulus, but with less marked response over the course of the 72-hour period.
 
@@ -51,13 +51,13 @@
 	
 	We used hidden Markov models to study the effect of environmental covariates on carp behavior; we were primarily interested in the effects of sound type ($100$hp boat-motor or the engineered signals) and sound intensity on carp behavior. There has been limited research on this topic, but one recent paper (Faulkner et al, unpublished) found that sound-types were associated with changes to the behavioral states of carp. However, the authors did not incorporate a sound intensity covariate.
 	
-	We performed the data-processing and modeling in \texttt{R} (R Core Team 2022), primarily using the \texttt{momentuHMM} package (\cite{McClintock2018}) for location estimation and model fitting. We note that momentuHMM relies heavily on the \texttt{crawl} \cite{crawl} and \texttt{moveHMM} \cite{Michelot2016} packages.
+	We performed the data-processing and modeling in \texttt{R} \cite{Rlang2022}, primarily using the \texttt{momentuHMM} package \cite{McClintock2018} for location estimation and model fitting. We note that momentuHMM relies heavily on the \texttt{crawl} \cite{crawl} and \texttt{moveHMM} \cite{Michelot2016} packages.
 
 \section{2018 CERC Pond Study}
 
 \section{Modeling Framework}
 
-	In this study, we use a state-space model of carp behavior developed in (Johnson2008, McClintock2012, Michelot2016, Whoriskey2017, McClintockMichelot2018paper), which uses a random-walk model to predict carp locations at regular timesteps, followed by a hidden Markov model to infer behavioral states as a function of environmental covariates. Our novel contribution to these models is the incorporation of spatially interpolated sound intensity values; to do this, we made use of the kriging utilities of the automap package (automap2022).
+	In this study, we use a state-space model of carp behavior developed in \cite{Johnson2008, McClintock2012, Michelot2016, Whoriskey2017, McClintock2018}, which uses a random-walk model to predict carp locations at regular timesteps, followed by a hidden Markov model to infer behavioral states as a function of environmental covariates. Our novel contribution to these models is the incorporation of spatially interpolated sound intensity values; to do this, we made use of the kriging utilities of the \texttt{automap} package \cite{automap}.
 
 	\subsection{Continuous-time Correlated Random Walk (CTCRW)}
 	
