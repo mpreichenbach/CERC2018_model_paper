@@ -4,6 +4,7 @@
 *.log
 *.pdf
 *.gz
+*synctex*
 /movement_modeling/
 /acoustics/
 
