@@ -1,6 +1,7 @@
 \documentclass[12pt]{article}
 \usepackage[space]{cite}
 \usepackage{enumitem}
+\usepackage{makecell}
 
 % this list puts numbers in parentheses
 \newlist{nicelist}{enumerate}{1}%
@@ -10,7 +11,7 @@
 \begin{document}
 
 \begin{abstract}
-	Silver carp (\emph{Hypophthalmychthys molitrix}) are one of four primary species of invasive cyprinids in the Mississippi River Basin. They threaten the ecosystems in which they have been introduced by competing with native planktivores and the early life stages of other native fishes. Additionally, silver carp can injure recreational boaters, thus causing negative economic impacts. To mitigate their spread, non-physical barriers such as electrical barriers, bubble curtains, carbon dioxide, and acoustic deterrents have been installed at locks and dams throughout the Mississippi River Basin. In this article, we focus on acoustic deterrents, and investigate their effect on behavioral changes on silver carp, using data from a 2018 pond study performed at the Columbia Environmental Research Center. We use a modeling approach combining continuous-time correlated random walks with a hidden Markov model for two behavioral states, and include interpolated sound-intensity values from the acoustic deterrent as a covariate. We also investigate the effect of pond-surface temperature and diel effects on silver carp behavior.
+	Silver carp (\emph{Hypophthalmychthys molitrix}) are one of four primary species of invasive cyprinids in the Mississippi River Basin. They threaten the ecosystems in which they have been introduced by competing with native planktivores and the early life stages of other native fishes. Additionally, silver carp can injure recreational boaters, thus causing negative economic impacts. To mitigate their spread, non-physical barriers such as electrical barriers, bubble curtains, carbon dioxide, and acoustic deterrents have been installed at locks and dams throughout the Mississippi River Basin. In this article, we focus on acoustic deterrents, and investigate their effect on behavioral changes on silver carp, using data from a 2018 pond study performed at the Columbia Environmental Research Center. We use a modeling approach combining continuous-time correlated random walks with a hidden Markov model for two behavioral states. We incorporate interpolated sound-intensity values from the acoustic deterrent as a novel covariate. We also investigate the effect of pond-surface temperature and diel effects on silver carp behavior changes.
 \end{abstract}
 
 \title{Modeling Behavioral Changes of Invasive Carp in Response to Acoustic Deterrents}
@@ -48,7 +49,7 @@
 	
 	Acoustic deterrents offer the possibility of selectively targeting silver carp, while posing less risk to humans. A number of studies have shown that a broad-frequency $100$hp outboard motor sound repeatedly deterred silver carp, but were not deterred by pure tones (Vetter2015, 2017, Murchy2017). Additionally, Dennis2019 found that a $40$hp sound, and a proprietary sound, deterred bigheaded carp (which silver carp belong to) as they attempted to pass through a flume. In both of these cases, the carps stopped responding to the deterrent by the end of the study, suggesting habituation or fatigue.
 	
-	These studies indicate that multi-frequency acoustic signals may deter silver carp, but their effectiveness under a more natural setting remains unknown. These boat-motor sounds also come with energetic demands and subsequent wear on the sound projectors which more compatible signals could lessen. To this end, we study the response of silver carp in a pond study to three acoustic stimuli: a $100$hp outboard motor sound, as in (Vetter2015, 2017, Murchy2017), along with two engineered sounds. In addition to studying the response of carp at the onset of the acoustic stimulus, we also study changes to their response over a 72-hour period. We hypothesized that silver carp would exhibit changes to their behavioral state at the onset of the stimulus, but with less marked response over the course of the 72-hour period.
+	These studies indicate that multi-frequency acoustic signals may deter silver carp, but their effectiveness under a more natural setting remains unknown. These boat-motor sounds also come with energetic demands and subsequent wear on the sound projectors which more compatible signals could lessen. To this end, we study the response of silver carp in a pond study to three acoustic stimuli: a $100$hp outboard motor sound, as in (Vetter2015, 2017, Murchy2017), along with two engineered sounds, which we denote Saw and Square. In addition to studying the response of carp at the onset of the acoustic stimulus, we also study changes to their response over a 72-hour period. We hypothesized that silver carp would exhibit changes to their behavioral state at the onset of the stimulus, but with less marked response over the course of the 72-hour period.
 
 	\subsection{Movement Modeling}
 	
@@ -60,15 +61,38 @@
 
 \section{2018 CERC Pond Study}
 
+	The study consisted of five trials, each lasting 72 hours. For each of the five trials, one of four acoustic deterrent treatments (Control, 100hp, Saw, and Square) was assigned to four ponds. The experimental design and trial durations are included in Table \ref{tbl:pond_study}.
+	
+	\begin{table}{h!}
+	\centering
+	\begin{tabular}{c|c|c|c|c|}
+		\, & \thead{Pond 26} & \thead{Pond 27} & \thead{Pond 30} & \thead{Pond 31} \\
+		\hline
+		\makecell{Trial 1 \\ 6/11 to 6/14} & Control & Square & 100hp & Saw \\
+		\hline
+		\makecell{Trial 2 \\ 6/26 to 6/29} & Square & 100hp & Saw & Control \\
+		\hline
+		\makecell{Trial 3 \\ 7/10 to 7/13} & 100hp & Saw & Control & Square \\
+		\hline
+		\makecell{Trial 4 \\ 7/24 to 7/27} & Saw & Control & Square & 100hp\\
+		\hline
+		\makecell{Trial 5 \\ 8/07 to 8/10} & Control &100hp & Saw & Square \\
+		\hline
+	\end{tabular}
+	\label{tbl:pond_study}
+	\end{table}
+	
+	For each trial, each pond contained 20 silver carp, ten of whom had an acoustic telemetry tag which allowed us to gather large time series datasets of their locations.
+
 \section{Modeling Framework}
 
-	In this study, we use a state-space model of carp behavior developed in \cite{Johnson2008, McClintock2012, Michelot2016, Whoriskey2017, McClintock2018}, which uses a random-walk model to predict carp locations at regular timesteps, followed by a hidden Markov model to infer behavioral states as a function of environmental covariates. Our novel contribution to these models is the incorporation of spatially interpolated sound intensity values; to do this, we made use of the kriging utilities of the \texttt{automap} package \cite{automap}.
+	In this study, we use a state-space model of carp behavior developed in \cite{Johnson2008, McClintock2012, Michelot2016, Whoriskey2017, McClintock2018}, which uses a random-walk model to predict carp locations at regular timesteps, followed by a hidden Markov model to infer behavioral states as a function of environmental covariates. We used the R package \texttt{momentuHMM} \cite{McClintock2018} to fit the models, and performed spatial interpolations of sound intensity values with the kriging utilities in the \texttt{automap} package \cite{automap}.
 
 	\subsection{Continuous-time Correlated Random Walk (CTCRW)}
 	
-		In our pond study (see the following section), the telemetry data has an irregular timestep; however, hidden Markov models require a constant timestep. Our first data-processing step was to fit a CTCRW model to the telemetry data, and use it to predict fish locations at a regular time step. To do this, we used the \texttt{crawlWrap} functions from the \texttt{momentuHMM} package \cite{McClintock2018}. This function is itself a wrapper of the \texttt{crwMLE} and \texttt{crwPredict} functions from the \texttt{crawl} package \cite{crawl}. 
+		In our pond study (see the following section), the telemetry data has an irregular timestep; however, hidden Markov models require a constant timestep. To ensure this, we first fit a CTCRW model to the telemetry data, and used it to predict fish locations at a regular time step. To do this, we used the \texttt{crawlWrap} functions from the \texttt{momentuHMM} package \cite{McClintock2018}. This function is itself a wrapper of the \texttt{crwMLE} and \texttt{crwPredict} functions from the \texttt{crawl} package \cite{crawl}. 
 		
-		The \texttt{crwMLE} function uses a Kalman filter to fit a continuous-time Ornstein-Uhlenbeck velocity process for each fish track, which is then integrated to form a location process. The \texttt{crwPredict} function then uses the fitted-model output of \texttt{crwMLE} to predict locations at the specified timesteps \cite{crawl, Johnson2008}. For our purposes, we used a time interval to 6 seconds, which was close to the most common timestep of 2 seconds in the telemetry data, and which allows for model-fitting in a reasonable amount of time.
+		The \texttt{crwMLE} function uses a Kalman filter to fit a continuous-time Ornstein-Uhlenbeck velocity process for each fish track, which is then integrated to form a location process. The \texttt{crwPredict} function then uses the fitted-model output of \texttt{crwMLE} to predict locations at the specified timesteps \cite{crawl, Johnson2008}. For the 1-minute and 5-minute models, we used a timestep of 2 seconds, which is close to the average timestep in the telemetry data. For the 30-minute models, a 2 second timestep was too frequent to allow model-fitting in a reasonable amount of time; instead, we opted to for a 6 second interval in the 30-minute models.
 
 	\subsection{Hidden Markov Models (HMMs)}
 	
@@ -83,7 +107,7 @@
 		\begin{nicelist}
 			\itemsep-0.2em
 			\item Trial: a factor covariate with five levels: 1, 2, 3, 4, and 5;
-			\item Treatment: a factor covariate with five levels: Silence, Control, 100hp, Saw, and Square;
+			\item Treatment: a factor covariate with four levels: Control, 100hp, Saw, and Square;
 			\item Diel: a factor covariate with two levels: Day and Night;
 			\item Temperature: a numeric covariate giving pond surface temperature in $^\circ C$;
 			\item Intensity: the sound intensity in dB re: 1 $\mu$Pa experienced at the carp's location.
@@ -92,6 +116,8 @@
 		We interpolated the measured Temperature and Intensity values before incorporating them into the carp location data; we give the details of these processes in Section \ref{sec:num-cov}.
 	
 		\subsubsection{Factor Covariates}
+		
+			The Trial covariate has five levels corresponding to the 
 		
 		\subsubsection{Numerical Covariates} \label{sec:num-cov}
 
