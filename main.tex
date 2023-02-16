@@ -1,11 +1,17 @@
 \documentclass[12pt]{article}
 \usepackage[space]{cite}
 \usepackage{enumitem}
+\usepackage{float}
+\restylefloat{table}
 \usepackage{makecell}
 
 % this list puts numbers in parentheses
 \newlist{nicelist}{enumerate}{1}%
 \setlist[nicelist]{label={(\arabic*)}}%
+
+% these commands make for nicer-looking tables
+\renewcommand\theadalign{bc}
+\renewcommand\theadfont{\bfseries}
 
 
 \begin{document}
@@ -63,22 +69,23 @@
 
 	The study consisted of five trials, each lasting 72 hours. For each of the five trials, one of four acoustic deterrent treatments (Control, 100hp, Saw, and Square) was assigned to four ponds. The experimental design and trial durations are included in Table \ref{tbl:pond_study}.
 	
-	\begin{table}{h!}
+	\begin{table}[H]
 	\centering
 	\begin{tabular}{c|c|c|c|c|}
 		\, & \thead{Pond 26} & \thead{Pond 27} & \thead{Pond 30} & \thead{Pond 31} \\
 		\hline
-		\makecell{Trial 1 \\ 6/11 to 6/14} & Control & Square & 100hp & Saw \\
+		\makecell{\thead{Trial 1 \\ 6/11 to 6/14}} & Control & Square & 100hp & Saw \\
 		\hline
-		\makecell{Trial 2 \\ 6/26 to 6/29} & Square & 100hp & Saw & Control \\
+		\makecell{\thead{Trial 2 \\ 6/26 to 6/29}} & Square & 100hp & Saw & Control \\
 		\hline
-		\makecell{Trial 3 \\ 7/10 to 7/13} & 100hp & Saw & Control & Square \\
+		\makecell{\thead{Trial 3 \\ 7/10 to 7/13}} & 100hp & Saw & Control & Square \\
 		\hline
-		\makecell{Trial 4 \\ 7/24 to 7/27} & Saw & Control & Square & 100hp\\
+		\makecell{\thead{Trial 4 \\ 7/24 to 7/27}} & Saw & Control & Square & 100hp\\
 		\hline
-		\makecell{Trial 5 \\ 8/07 to 8/10} & Control &100hp & Saw & Square \\
+		\makecell{\thead{Trial 5 \\ 8/07 to 8/10}} & Control &100hp & Saw & Square \\
 		\hline
 	\end{tabular}
+	\caption{Locations of acoustic deterrent treatments during each trial.}
 	\label{tbl:pond_study}
 	\end{table}
 	
