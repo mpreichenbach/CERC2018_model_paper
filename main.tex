@@ -119,11 +119,77 @@
 		
 			The \emph{Trial} covariate has five levels which correspond to the trial in the study: 1, 2, 3, 4, and 5. The \emph{Treatment} covariate has four levels which correspond to the type of acoustic deterrent played in the ponds, namely Control, 100hp, Saw, and Square. Details of the \emph{Trial} and \emph{Treatment} are included in Table \ref{tbl:pond_study}.
 			
-			The \emph{Diel} covariate has two levels, Day and Night. We defined Day to mean that a data point occurred after local sunrise and before local sunset, and Night to mean that a data point occurred after local sunset and before local sunrise.
+			The \emph{Diel} covariate has two levels, Day and Night. We defined Day to mean that a data point occurred after local sunrise and before local sunset on the same day, and Night to mean that a data point occurred after local sunset and before local sunrise on the following day.
 		
 		\subsubsection{Numerical Covariates} \label{sec:num-cov}
+		
+			Pond surface temperature was recorded throughout the study
+		
+			
 
 \section{Results}
+
+	\subsection{Top Models by AIC Score}
+		
+		For each of the 24 sound repetitions, and for each time-interval (1 minute, 5 minute, and 30 minutes after the sound exposure), we determined the top model according to Akaike's Information Criterion, or AIC score. Table \ref{tbl:aic_scores} records the formulas of these top models:
+		
+			\begin{table}[H]
+			\centering
+			\begin{tabular}{|c|c|c|c|}
+				Repetition & \thead{1 min.} & \thead{5 min.} & \thead{30 min.} \\
+				\hline
+				1 & $\sim$Trial+Temp+Trt & $\sim$Trial+Temp+Diel+Trt & $\sim$Trial+Trt \\
+				\hline
+				2 & $\sim$Trial+Trt & $\sim$Trial+Temp+Trt & $\sim$Trial+Temp+Trt \\
+				\hline
+				3 & $\sim$Trial+Trt & $\sim$Trial+Temp+Trt & $\sim$Trial+Temp+Trt \\
+				\hline
+				4 & $\sim$Trial+dB+Trt & $\sim$Trial+dB+Trt & $\sim$Trial+Temp+Trt \\
+				\hline
+				5 & $\sim$Trial+Trt & $\sim$Trial+Trt & $\sim$Trial+Temp+Trt \\
+				\hline
+				6 & $\sim$Trial+dB+Trt & $\sim$Trial+Trt & $\sim$Trial+Trt \\
+				\hline
+				7 & $\sim$Trial+Temp+dB & $\sim$Trial+Temp+Trt & $\sim$Trial+Temp+Trt \\
+				\hline
+				8 & $\sim$Trial+Trt & $\sim$Trial+Trt & $\sim$Trial+Temp+Trt \\
+				\hline
+				9 & $\sim$Trial+Temp+Trt & $\sim$Trial+dB+Trt & Trial+Trt \\
+				\hline
+				10 & $\sim$Trt & $\sim$Trial+Temp+Trt & $\sim$Trial+Temp+Trt \\
+				\hline
+				11 & $\sim$Trial+Trt & $\sim$Trial+Trt & $\sim$Trial+Temp+Trt \\
+				\hline
+				12 & $\sim$Trial+dB+Trt & $\sim$Trial+Temp+Trt & $\sim$Trial+Temp+Trt \\
+				\hline
+				13 & $\sim$Trial & $\sim$Trial+Temp+Treatment & $\sim$Trial+Temp+Trt \\
+				\hline
+				14 & $\sim$Trial+Trt & $\sim$Trial+Trt & $\sim$Trial+Temp+dB+Trt \\
+				\hline
+				15 & $\sim$Trial+Temp+Trt & $\sim$Trial+Trt & $\sim$Trial+dB+Trt \\
+				\hline
+				16 & $\sim$Trial+Trt & $\sim$Trial+Trt & $\sim$Trial+Trt \\
+				\hline
+				17 & $\sim$Trial+Trt & $\sim$Trial+Trt & $\sim$Trial+Temp+Trt \\
+				\hline
+				18 & $\sim$Trial+Trt & $\sim$Trial+Trt & $\sim$Trial+Temp+Trt \\
+				\hline
+				19 & $\sim$Trial+Temp+Trt & $\sim$Trial+Trt & $\sim$Trial+Trt \\
+				\hline
+				20 & $\sim$Trial+Trt & $\sim$Trial+Temp+Trt & $\sim$Trial+Temp+Trt \\
+				\hline
+				21 & $\sim$Trial+Trt & $\sim$Trial+Trt & $\sim$Trial+Trt \\
+				\hline
+				22 & $\sim$Trial+Trt & $\sim$Trial+Temp+Trt & $\sim$Trial+Trt \\
+				\hline
+				23 & $\sim$Trial+Trt & Trial+Trt & $\sim$Trial+Trt \\
+				\hline
+				24 & $\sim$Trial & $\sim$Trial+Temp+Trt & Trial+Temp+Trt \\
+				\hline
+			\end{tabular}
+			\caption{Formulas of top models by AIC score.}
+			\label{tbl:aic_scores}
+		\end{table}
 
 \section{Conclusion}
 
