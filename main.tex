@@ -71,7 +71,8 @@
 	
 	\begin{table}[H]
 	\centering
-	\begin{tabular}{c|c|c|c|c|}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
 		\, & \thead{Pond 26} & \thead{Pond 27} & \thead{Pond 30} & \thead{Pond 31} \\
 		\hline
 		\makecell{\thead{Trial 1 \\ 6/11 to 6/14}} & Control & Square & 100hp & Saw \\
@@ -136,7 +137,8 @@
 			\begin{table}[H]
 			\centering
 			\begin{tabular}{|c|c|c|c|}
-				Repetition & \thead{1 min.} & \thead{5 min.} & \thead{30 min.} \\
+				\hline
+				\thead(Repetition) & \thead{1 min.} & \thead{5 min.} & \thead{30 min.} \\
 				\hline
 				1 & $\sim$Trial+Temp+Trt & $\sim$Trial+Temp+Diel+Trt & $\sim$Trial+Trt \\
 				\hline
@@ -144,7 +146,7 @@
 				\hline
 				3 & $\sim$Trial+Trt & $\sim$Trial+Temp+Trt & $\sim$Trial+Temp+Trt \\
 				\hline
-				4 & $\sim$Trial+dB+Trt & $\sim$Trial+dB+Trt & $\sim$Trial+Temp+Trt \\
+				4 & $\sim$Trial+dB+Trt & $\sim$Trial+dB+Trt & $\sim$Trial+Trt \\
 				\hline
 				5 & $\sim$Trial+Trt & $\sim$Trial+Trt & $\sim$Trial+Temp+Trt \\
 				\hline
@@ -162,7 +164,7 @@
 				\hline
 				12 & $\sim$Trial+dB+Trt & $\sim$Trial+Temp+Trt & $\sim$Trial+Temp+Trt \\
 				\hline
-				13 & $\sim$Trial & $\sim$Trial+Temp+Treatment & $\sim$Trial+Temp+Trt \\
+				13 & $\sim$Trial & $\sim$Trial+Temp+Trt & $\sim$Trial+Temp+Trt \\
 				\hline
 				14 & $\sim$Trial+Trt & $\sim$Trial+Trt & $\sim$Trial+Temp+dB+Trt \\
 				\hline
@@ -187,9 +189,38 @@
 				24 & $\sim$Trial & $\sim$Trial+Temp+Trt & Trial+Temp+Trt \\
 				\hline
 			\end{tabular}
-			\caption{Formulas of top models by AIC score.}
+			\caption{Formulas of top models by AIC score. The covariates \emph{dB}, \emph{Trt}, and \emph{Temp} correspond to \emph{Intensity, Treatment, and Temperature}, respectively.}
 			\label{tbl:aic_scores}
-		\end{table}
+			\end{table}
+	
+		Given that only a few model formulas occur in the top models, the table above is summarized in the formula frequency table below:
+		
+			\begin{table}[H]
+				\centering
+				\begin{tabular}{|c|c|c|c|c|}
+					\hline
+					\thead{Formula} & \makecell{\thead{1min \\ Frequency}} & \makecell{\thead{5min \\ Frequency}} & \makecell{\thead{30min \\ Frequency}} & \thead{Total} \\
+					\hline
+					$\sim$Trial+Trt & 13 & 12 & 9 & 34 \\
+					\hline
+					$\sim$Trial+Temp+Trt & 4 & 9 & 13 & 26 \\
+					\hline
+					$\sim$Trial+dB+Trt & 3 & 2 & 1 & 6 \\
+					\hline
+					$\sim$Trial & 2 & 0 & 0 & 2 \\
+					\hline
+					$\sim$Trial+Temp+dB & 1 & 0 & 0 & 1 \\
+					\hline
+					$\sim$Trt & 1 & 0 & 0 & 1 \\
+					\hline
+					$\sim$Trial+Temp+Diel+Trt & 0 & 1 & 0 & 1 \\
+					\hline
+					$\sim$Trial+Temp+dB+Trt & 0 & 0 & 1 & 1 \\
+					\hline
+				\end{tabular}
+				\caption{Frequency of formulas in top models.}
+				\label{tbl:frm_freq}
+			\end{table}
 
 \section{Conclusion}
 
