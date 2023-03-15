@@ -110,12 +110,14 @@
 	
 		HMMs are particularly well-suited to studying the behavioral changes of fish in response to environmental stimuli, because they attempt to identify hidden ``states" given observed data \cite{Rabiner1989}. We assume that the fish exhibit two behavioral states, which we denote ``exploratory" and ``encamped"; the former is characterized by directed motion at a greater speed, and the latter is characterized by random (uniform) motion at slower speeds. These two states describe motion in many species, such as elk \cite{Morales2004, Fryxell2008}, gray brocket deer \cite{Grotta-Neto2019}, elephants \cite{Roever2014, Vogel2019}, and grey seals \cite{Breed2009}. Though these are mammalian examples, with only one aquatic species, a visual inspection of the carp telemetry data indicates that individuals do exhibit encamped and exploratory behaviors as well.
 		
-		We fit HMMs using the \texttt{fitHMM} function from the \texttt{momentuHMM} package.
+		We fit HMMs using the \texttt{fitHMM} function from the \texttt{momentuHMM} package. These models consist of probability distributions for step lengths and turning angle for each state, and a state-transition matrix. In general, HMMs may consist of an arbitrary number of states $n$, but we investigated the case when $n = 2$. We modeled the step lengths as as Gamma distributions, and the turning angles as Von Mises distributions.
 	
 	\subsection{Covariates}
 	
-		We explored the effect of five covariates on carp behavior: \emph{Trial, Treatment, Diel, Temperature, and Intensity}. The first three are factor covariates, and the latter two are numerical covariates. We incorporated these covariates into the location predictions given by the CTCRW model.
-	
+		We explored the effect of five covariates on carp behavior, \emph{Trial, Treatment, Diel, Temperature, and Intensity}, by modeling the step length means and state-transition probabilities as linear functions of the covariates. We only included Diel as a covariate in model formulas when sunrise and sunset occur during the same sound repetition. For the sound repetitions in which that occurs, we fit a total of 32 models, and for the sound repetitions in which a sunrise or sunset does not occur, we fit 16 models. These values come from the fact that
+		\[2^n = \sum_{i=0}^n {n \choose i},\]
+		where $i$ is the number of covariates to include in a formula. For the sound repetitions with a sunrise or sunset, we use all five covariates, so $n = 5$ covariates; otherwise, we ignore the formulas with Diel, and so $n = 4$.
+		
 		\subsubsection{Factor Covariates}
 		
 			The \emph{Trial} covariate has five levels which correspond to the trial in the study: 1, 2, 3, 4, and 5. The \emph{Treatment} covariate has four levels which correspond to the type of acoustic deterrent played in the ponds, namely Control, 100hp, Saw, and Square. Details of the \emph{Trial} and \emph{Treatment} are included in Table \ref{tbl:pond_study}.
@@ -132,13 +134,13 @@
 
 	\subsection{Top Models by AIC Score}
 		
-		For each of the 24 sound repetitions, and for each time-interval (1 minute, 5 minute, and 30 minutes after the sound exposure), we determined the top model according to Akaike's Information Criterion, or AIC score. Table \ref{tbl:aic_scores} records the formulas of these top models:
+		For each of the 24 sound repetitions, and for each time-interval (1 minute, 5 minute, and 30 minutes after the sound exposure), we determined the top model according to Akaike's Information Criterion, or AIC score. Table \ref{tbl:aic_scores} records the formulas of these top models; to simplify notation, we write \emph{dB}, \emph{Trt}, and \emph{Temp} in place of \emph{Intensity, Treatment, and Temperature}, respectively.
 		
 			\begin{table}[H]
 			\centering
 			\begin{tabular}{|c|c|c|c|}
 				\hline
-				\thead(Repetition) & \thead{1 min.} & \thead{5 min.} & \thead{30 min.} \\
+				\thead{Repetition} & \thead{1 min.} & \thead{5 min.} & \thead{30 min.} \\
 				\hline
 				1 & $\sim$Trial+Temp+Trt & $\sim$Trial+Temp+Diel+Trt & $\sim$Trial+Trt \\
 				\hline
@@ -189,7 +191,7 @@
 				24 & $\sim$Trial & $\sim$Trial+Temp+Trt & Trial+Temp+Trt \\
 				\hline
 			\end{tabular}
-			\caption{Formulas of top models by AIC score. The covariates \emph{dB}, \emph{Trt}, and \emph{Temp} correspond to \emph{Intensity, Treatment, and Temperature}, respectively.}
+			\caption{Formulas of top models by AIC score.}
 			\label{tbl:aic_scores}
 			\end{table}
 	
