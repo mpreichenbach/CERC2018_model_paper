@@ -2,6 +2,7 @@
 \usepackage[space]{cite}
 \usepackage{enumitem}
 \usepackage{float}
+\usepackage{graphicx}
 \restylefloat{table}
 \usepackage{makecell}
 
@@ -130,7 +131,13 @@
 		
 		\subsubsection{Numerical Covariates} \label{sec:num-cov}
 		
-			Pond surface temperature was recorded throughout the study
+			Pond surface temperature was recorded throughout the study, at 15 minute intervals in each pond. However, our predicted location data has a much more frequent time step: 2 seconds for the two short-term datasets (1 minute and 5 minutes after the sound stimulus), and 6 seconds for the long-term dataset (30 minutes after the sound stimulus). We incorporated temperature values into these datasets by performing a linear interpolation between each recorded value. The following figure shows the temperature recordings in each pond over the course of each trial.
+			
+			\begin{figure}
+
+				\caption{Temperature readings throughout the 2018 CERC study.}
+				\label{img:temperature}
+			\end{figure}
 		
 			
 
