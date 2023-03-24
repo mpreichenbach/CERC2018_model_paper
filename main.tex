@@ -3,6 +3,7 @@
 \usepackage{enumitem}
 \usepackage{float}
 \usepackage{graphicx}
+\graphicspath{ {./images/} }
 \restylefloat{table}
 \usepackage{makecell}
 
@@ -131,11 +132,13 @@
 		
 		\subsubsection{Numerical Covariates} \label{sec:num-cov}
 		
-			Pond surface temperature was recorded throughout the study, at 15 minute intervals in each pond. However, our predicted location data has a much more frequent time step: 2 seconds for the two short-term datasets (1 minute and 5 minutes after the sound stimulus), and 6 seconds for the long-term dataset (30 minutes after the sound stimulus). We incorporated temperature values into these datasets by performing a linear interpolation between each recorded value. The following figure shows the temperature recordings in each pond over the course of each trial.
+			Pond surface temperature was recorded throughout the study, at 15 minute intervals in each pond. However, our predicted location data has a much more frequent time step: 2 seconds for the two short-term datasets (1 minute and 5 minutes after the sound stimulus), and 6 seconds for the long-term dataset (30 minutes after the sound stimulus). We incorporated temperature values into these datasets by performing a linear interpolation between each recorded value.
+			
+			Figure \ref{img:temperature} shows the temperature recordings in each pond over the course of each trial.
 			
 			\begin{figure}
-
-				\caption{Temperature readings throughout the 2018 CERC study.}
+				\includegraphics[width=\textwidth]{pond_26_temp.png}
+				\caption{Temperature readings for Pond 26 throughout the 2018 CERC study.}
 				\label{img:temperature}
 			\end{figure}
 		
@@ -206,7 +209,7 @@
 			\label{tbl:aic_scores}
 			\end{table}
 	
-		Given that only a few model formulas occur in the top models, the table above is summarized in the formula frequency table below:
+		Given that only a few model formulas occur in the top models, the table in Figure \ref{tbl:aic_scores} is summarized in the formula frequency table in Figure \ref{tbl:frm_freq}:
 		
 			\begin{table}[H]
 				\centering
