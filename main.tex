@@ -165,8 +165,8 @@
 \section{Results}
 
 	\subsection{Top Models by AIC Score}
-		
-		For each of the 24 sound repetitions, and for each time-interval (1 minute, 5 minute, and 30 minutes after the sound exposure), we determined the top model according to Akaike's Information Criterion, or AIC score. Table \ref{tbl:aic_scores} records the formulas of these top models; to simplify notation, we write \emph{dB}, \emph{Trt}, and \emph{Temp} in place of \emph{Intensity, Treatment, and Temperature}, respectively.
+	
+		In order to determine whether sound intensity was a good predictor of carp behavior, we first determined the frequency of the \emph{dB} covariate among the top model formulas for the 24 repetitions. For each sound repetition, and for each time-interval (1 minute, 5 minute, and 30 minutes after the sound exposure), we determined the top model according to Akaike's Information Criterion, or AIC score. Table \ref{tbl:aic_scores} records the formulas of these top models; to simplify notation, we write \emph{dB}, \emph{Trt}, and \emph{Temp} in place of \emph{Intensity, Treatment, and Temperature}, respectively.
 		
 			\begin{table}[H]
 			\centering
@@ -255,6 +255,10 @@
 				\caption{Frequency of formulas in top models.}
 				\label{tbl:frm_freq}
 			\end{table}
+			
+	\subsection{State-Switching Probabilities}
+	
+		To determine whether the covariate \emph{dB} had a common effect on carp behavior, we investigated plots of the state-switching probabilities $\lambda_{i \to j}$, with $i, j \in \{1, 2\}$, as a function of dB (re 1 $\mu$Pa).
 
 \section{Conclusion}
 
