@@ -160,7 +160,21 @@
 			
 			Further details on how the weights $w_i(x_0)$ at a given point can be computed are given in CITE A BOOK HERE.
 			
-			For our purposes, sound intensity readings (dB re 1 $\mu$Pa) were recorded once before the trials began, at 98 locations in each pond, and for each sound treatment except the Control. We used these values, along with an automatic kriging process, to interpolate sound intensity values which we incorporated into the movement tracks in each pond. Although there were 24 sound repetitions during the study study, intensity readings were not taken each time the sound turned on. Hence, we assumed that the readings taken before the the trials began were representative of the readings during each repetition. In order to incorporate reasonable values for sound intensity in the Control ponds, we sampled from a Gaussian random variable with parameters given in \cite{Wysocki2007} for a concrete pond.			
+			For our purposes, sound intensity readings (dB re 1 $\mu$Pa) were recorded once before the trials began, at 98 locations in each pond, and for each sound treatment except the Control. We used these values, along with an automatic kriging process, to interpolate sound intensity values which we incorporated into the movement tracks in each pond. Although there were 24 sound repetitions during the study study, intensity readings were not taken each time the sound turned on. Hence, we assumed that the readings taken before the the trials began were representative of the readings during each repetition. In order to incorporate reasonable values for sound intensity in the Control ponds, we sampled from a Gaussian random variable with parameters given in \cite{Wysocki2007} for a concrete pond.
+			
+			Figure \ref{img:variograms} shows the variograms with fitted models for each Pond/Trial combination, and Figure \ref{img:intensities} shows interpolated values in each pond.
+			
+			\begin{figure}
+				%\includegraphics[width=\textwidth]{variograms.png}
+				\caption{Variograms and fitted models.}
+				\label{img:variograms}
+			\end{figure}
+			
+			\begin{figure}
+				%\includegraphics[width=\textwidth]{intensities.png}
+				\caption{Interpolated sound intensity values from the kriging process.}
+				\label{img:intensities}
+			\end{figure}		
 
 \section{Results}
 
