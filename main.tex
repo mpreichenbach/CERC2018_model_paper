@@ -101,7 +101,7 @@
 
 	In this study, we use a state-space model developed in \cite{Johnson2008, McClintock2012, Michelot2016, Whoriskey2017, McClintock2018}, which uses a continuous-time correlated random-walk (CTCRW) model to predict carp locations at regular timesteps, followed by a hidden Markov model (HMM) to infer behavioral states as a function of environmental covariates. We fit models over three blocks of time: 1 minute, 5 minutes, and 30 minutes after the acoustic deterrent turned on.
 	
-	 We used the R package \texttt{momentuHMM} \cite{McClintock2018} to fit the models, and performed spatial interpolations of sound intensity values with the kriging utilities in the \texttt{automap} package \cite{automap}.
+	 We used the R package \texttt{momentuHMM} \cite{McClintock2018} to fit the models, and performed spatial interpolations of sound intensity values with the kriging utilities in the \texttt{automap} package  \cite{Hiemstra2008}.
 
 	\subsection{Continuous-time Correlated Random Walk (CTCRW)}
 	
@@ -149,9 +149,18 @@
 				\label{img:temperature}
 			\end{figure}
 		
-			Sound intensity readings (dB re 1 $\mu$Pa) were recorded once before the trials began, at 98 locations in each pond, and for each sound treatment except the Control. 
-		
+			In order to incorporate the sound intensity as a covariate in the predicted tracks, we used the spatial interpolation method known as \emph{kriging} from the R package \texttt{automap} \cite{Hiemstra2008}. Kriging is especially useful when interpolated values are assumed to have some spatial autocorrelation, like acoustic signal intensities in water will. Kriging has the benefit of being an ``exact interpolator", meaning that the value predicted for any observed location will equal the observed value. Additionally, the interpolated values from the kriging process will be the best linear unbiased predictors.
 			
+			The kriging involves two steps: fitting a model to the variogram plot, then using this model to find weights which are used to interpolate missing values. The variogram plots half the mean-squared difference between the values at all pairs of points, against the distance between each pair. The \texttt{automap::autoKrige} function automatically determines which model fits the variogram best, by comparing fits of spherical, exponential, Gaussian, and a model from the Matern family of functions \cite{Hiemstra2008}. Using whichever models fits the variogram best, the weights $w_i = w_i(x_0)$ can be calculated for each any unobserved point $x_0$, and the interpolated value $\hat z(x_0)$ is then a linear combination of these weights with the observed values $z(x_i)$, for $i = 1, \ldots, n$:
+			
+			\begin{align*}
+				\hat z(x_0) &= \begin{bmatrix} w_1 & w_2 & \cdots & w_n \end{bmatrix} \begin{bmatrix} z(x_1) \\ z(x_2) \\ \vdots \\ z(x_n) \end{bmatrix} \\
+				&= \sum_{i = 1}^n w_i(x_0) z(x_i)
+			\end{align*}
+			
+			Further details on how the weights $w_i(x_0)$ at a given point can be computed are given in CITE A BOOK HERE.
+			
+			For our purposes, sound intensity readings (dB re 1 $\mu$Pa) were recorded once before the trials began, at 98 locations in each pond, and for each sound treatment except the Control. We used these values, along with an automatic kriging process, to interpolate sound intensity values which we incorporated into the movement tracks in each pond. Although there were 24 sound repetitions during the study study, intensity readings were not taken each time the sound turned on. Hence, we assumed that the readings taken before the the trials began were representative of the readings during each repetition. In order to incorporate reasonable values for sound intensity in the Control ponds, we sampled from a Gaussian random variable with parameters given in \cite{Wysocki2007} for a concrete pond.			
 
 \section{Results}
 
