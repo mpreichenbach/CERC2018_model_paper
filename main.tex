@@ -123,15 +123,15 @@
 	
 		HMMs are particularly well-suited to studying the behavioral changes of fish in response to environmental stimuli, because they attempt to identify hidden ``states" given observed data \cite{Rabiner1989}. We assume that the fish exhibit two behavioral states, which we denote ``exploratory" and ``encamped"; the former is characterized by directed motion at a greater speed, and the latter is characterized by random (uniform) motion at slower speeds. These two states describe motion in many species, such as elk \cite{Morales2004, Fryxell2008}, gray brocket deer \cite{Grotta-Neto2019}, elephants \cite{Roever2014, Vogel2019}, and grey seals \cite{Breed2009}. Though these are mammalian examples, with only one aquatic species, a visual inspection of the carp telemetry data indicates that individuals do exhibit encamped and exploratory behaviors as well.
 		
-		We fit HMMs using the \texttt{fitHMM} function from the \texttt{momentuHMM} package. These models consist of probability distributions for step lengths and turning angle for each state, and a state-transition matrix. In general, HMMs may consist of an arbitrary number of states $n$, but we investigated the case when $n = 2$. We modeled the step lengths as as Gamma distributions, and the turning angles as von Mises distributions.
+		We fit HMMs using the \texttt{fitHMM} function from the \texttt{momentuHMM} package. These models consist of probability distributions for step lengths and turning angle for each state, and a state transition matrix. In general, HMMs may consist of an arbitrary number of states $n$, but we investigated the case when $n = 2$. We modeled the step lengths as as Gamma distributions, and the turning angles as von Mises distributions.
 	
 	\subsection{Covariates}
 	
-		We explored the effect of five covariates on carp behavior, \emph{Trial, Treatment, Diel, Temperature, and Intensity}, by modeling the step length means and state-transition probabilities as linear functions of the covariates. We only included Diel as a covariate in model formulas when sunrise and sunset occur during the same sound repetition. For the sound repetitions in which that occurs, we fit a total of 32 models, and for the sound repetitions in which a sunrise or sunset does not occur, we fit 16 models. These values come from the fact that
+		We explored the effect of five covariates on carp behavior, \emph{Trial, Treatment, Diel, Temperature, and Intensity}, by modeling the step length means and state transition probabilities as linear functions of the covariates. We only included Diel as a covariate in model formulas when sunrise and sunset occur during the same sound repetition. For the sound repetitions in which that occurs, we fit a total of 32 models, and for the sound repetitions in which a sunrise or sunset does not occur, we fit 16 models. These values come from the fact that
 		\[2^n = \sum_{i=0}^n {n \choose i},\]
 		where $i$ is the number of covariates to include in a formula. For the sound repetitions which contain a sunrise or sunset, we use all five covariates, so $n = 5$ covariates. Otherwise, we ignore the formulas with Diel, in which case $n = 4$. Also, we take $i = 0$ to be the intercept-only formula $\sim$1.
 		
-		The parameters of the HMMs which we modeled as linear functions of the covariates were the mean step lengths, $\mu_1$ and $\mu_2$; the mean turning angles, $\theta_1$ and $\theta_2$, and the state-switching probabilities $\lambda_{1 \to 2}$ and $\lambda_{2 \to 1}$. Here, $\mu_i$ and $\theta_i$ are the mean step length and turning angle, respectively, for behavioral state $i = 1, 2$, and $\lambda_{i \to j}$ denotes the probability that an individual switches from state $i$ to state $j$ during the time step. We used the intercept-only formula $\sim$1 to model the shape parameters of the Gamma and von Mises distributions in each HMM.
+		The parameters of the HMMs which we modeled as linear functions of the covariates were the mean step lengths, $\mu_1$ and $\mu_2$; the mean turning angles, $\theta_1$ and $\theta_2$, and the statetransition probabilities $\lambda_{1 \to 2}$ and $\lambda_{2 \to 1}$. Here, $\mu_i$ and $\theta_i$ are the mean step length and turning angle, respectively, for behavioral state $i = 1, 2$, and $\lambda_{i, j}$ denotes the probability that an individual switches from state $i$ to state $j$ during the time step, which were modeled as multinomial logit functions \cite{Michelot2016}. We used the intercept-only formula $\sim$1 to model the shape parameters of the Gamma and von Mises distributions in each HMM.
 		
 		\subsubsection{Factor Covariates}
 		
@@ -151,7 +151,9 @@
 		
 			In order to incorporate the sound intensity as a covariate in the predicted tracks, we used the spatial interpolation method known as \emph{kriging} from the R package \texttt{automap} \cite{Hiemstra2008}. Kriging is especially useful when interpolated values are assumed to have some spatial autocorrelation, like acoustic signal intensities in water will. Kriging has the benefit of being an ``exact interpolator", meaning that the value predicted for any observed location will equal the observed value. Additionally, the interpolated values from the kriging process will be the best linear unbiased predictors.
 			
-			The kriging involves two steps: fitting a model to the variogram plot, then using this model to find weights which are used to interpolate missing values. The variogram plots half the mean-squared difference between the values at all pairs of points, against the distance between each pair. The \texttt{automap::autoKrige} function automatically determines which model fits the variogram best, by comparing fits of spherical, exponential, Gaussian, and a model from the Matern family of functions \cite{Hiemstra2008}. Using whichever models fits the variogram best, the weights $w_i = w_i(x_0)$ can be calculated for each any unobserved point $x_0$, and the interpolated value $\hat z(x_0)$ is then a linear combination of these weights with the observed values $z(x_i)$, for $i = 1, \ldots, n$:
+			The kriging involves two steps: fitting a model to the variogram plot, then using this model to find weights which are used to interpolate missing values. The variogram plots half the mean-squared difference between the values at all pairs of points, against the distance between each pair. The \texttt{automap::autoKrige} function automatically determines which model fits the variogram best, by comparing fits of spherical, exponential, Gaussian, and a model from the Matern family of functions \cite{Hiemstra2008}. 
+			
+			Using whichever models fits the variogram best, the weights $w_i = w_i(x_0)$ can be calculated for each any unobserved point $x_0$, and the interpolated value $\hat z(x_0)$ is then a linear combination of these weights with the observed values $z(x_i)$, for $i = 1, \ldots, n$:
 			
 			\begin{align*}
 				\hat z(x_0) &= \begin{bmatrix} w_1 & w_2 & \cdots & w_n \end{bmatrix} \begin{bmatrix} z(x_1) \\ z(x_2) \\ \vdots \\ z(x_n) \end{bmatrix} \\
@@ -162,16 +164,10 @@
 			
 			For our purposes, sound intensity readings (dB re 1 $\mu$Pa) were recorded once before the trials began, at 98 locations in each pond, and for each sound treatment except the Control. We used these values, along with an automatic kriging process, to interpolate sound intensity values which we incorporated into the movement tracks in each pond. Although there were 24 sound repetitions during the study study, intensity readings were not taken each time the sound turned on. Hence, we assumed that the readings taken before the the trials began were representative of the readings during each repetition. In order to incorporate reasonable values for sound intensity in the Control ponds, we sampled from a Gaussian random variable with parameters given in \cite{Wysocki2007} for a concrete pond.
 			
-			Figure \ref{img:variograms} shows the variograms with fitted models for each Pond/Trial combination, and Figure \ref{img:intensities} shows interpolated values in each pond.
+			Figure \ref{img:intensities} shows interpolated sound intensity values in each pond from the kriging process.
 			
-			\begin{figure}
-				%\includegraphics[width=\textwidth]{variograms.png}
-				\caption{Variograms and fitted models.}
-				\label{img:variograms}
-			\end{figure}
-			
-			\begin{figure}
-				%\includegraphics[width=\textwidth]{intensities.png}
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{intensities.png}
 				\caption{Interpolated sound intensity values from the kriging process.}
 				\label{img:intensities}
 			\end{figure}		
@@ -270,9 +266,21 @@
 				\label{tbl:frm_freq}
 			\end{table}
 			
-	\subsection{State-Switching Probabilities}
+	\subsection{State Transition Probabilities}
 	
-		To determine whether the covariate \emph{dB} had a common effect on carp behavior, we investigated plots of the state-switching probabilities $\lambda_{i \to j}$, with $i, j \in \{1, 2\}$, as a function of dB (re 1 $\mu$Pa).
+		To determine whether the covariate \emph{dB} had a common effect on carp behavior, we investigated plots of the state transition probabilities $\lambda_{i, j}$, with $i, j \in \{1, 2\}$, as a function of dB (re 1 $\mu$Pa). The probabilities $\lambda_{i, j}$ are modeled as multinomial logit functions, the details of which are given in \cite{Michelot2016}. These plots indicate how the probability of changing behavioral states is correlated with changes to dB levels in the pond. Recall that $\lambda_{i, j}$ gives the probability that an individual will be in behavioral state $j$ at time $n+1$, given that they are in behavioral state $i$ at time $n$. Also, since we only consider two behavioral states, we have the identities
+		\begin{align*}
+			\lambda_{1, 1} + \lambda_{1, 2} &= 1 \\
+			\lambda_{2, 1} + \lambda_{2, 2} & = 1.
+		\end{align*}
+		
+		When fitting models, we associated $i = 1$ to the \emph{exploratory} behavioral state, and $i = 2$ to the \emph{encamped} state.
+		
+		\subsubsection{1-Minute Models}
+		
+		\subsubsection{5-Minute Models}
+		
+		\subsubsection{30-Minute Models}
 
 \section{Conclusion}
 
