@@ -283,25 +283,36 @@
 		
 		\subsubsection{Repetition 4, 1-Minute Model}
 			
-			For Repetition 4, the top model was $\sim$Trial+dB+Trt, so we generated 20 plots of the transition probabilities (5 trials $\times$ 4 treatments). These plots show how the transition probabilities respond to the dB covariate. These plots indicate that in the 1 minute period after the sound turned on for Repetition 4, the parameters $\lambda_{1, 1}$ or $\lambda_{2, 1}$ decrease as dB increases, which suggests that individuals are less likely to stay in, or transition to, the exploratory state at higher dB levels. Equivalently, this means that individuals were more likely to stay encamped, or to transition into an encamped state, with $\lambda_{1, 2}$ and $\lambda_{2, 2}$ increasing as dB increases. Figure \ref{img:1min_trans_tmnt} shows this pattern for Trial 4 and the 100Hp treatment, which is representative of the plots for the other values of the factor covariates.
+			For Repetition 4, the top model was $\sim$Trial+dB+Trt, so we generated 20 plots of the transition probabilities (5 trials $\times$ 4 treatments). These plots show how the transition probabilities respond to the dB covariate. These plots indicate that in the 1 minute period after the sound turned on for Repetition 4, the parameters $\lambda_{1, 1}$ or $\lambda_{2, 1}$ decrease as dB increases, which suggests that individuals are less likely to stay in, or transition to, the exploratory state at higher dB levels. Equivalently, this means that individuals were more likely to stay encamped, or to transition into an encamped state, with $\lambda_{1, 2}$ and $\lambda_{2, 2}$ increasing as dB increases. Figure \ref{img:rep4_1min_trans_tmnt} shows this pattern for Trial 4 and the 100Hp treatment, which is representative of the plots for the other trials and sound deterrents.
 			
-			\begin{figure}[H]
-				\includegraphics[width=\textwidth]{trans_rep_4_trial_4_100Hp.png}
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.85\textwidth]{trans_rep_4_trial_4_100Hp.png}
 				\caption{Rep. 4 state transition probabilities during exposure to an acoustic deterrent.}
-				\label{img:1min_trans_tmnt}
+				\label{img:rep4_1min_trans_tmnt}
 			\end{figure}
 			
-			This pattern also held for the Control treatment (see Figure \ref{img:1min_trans_control}), but at lower dB values than the other treatments since no sound deterrent was played.
+			This pattern also held for the Control treatment (see Figure \ref{img:rep4_1min_trans_control}), but at lower dB values than the other treatments since no sound deterrent was played. We include the plots for the Control treatment and Trial 5, because it is representative of the plots for the other trials. The lower two plots of Figure \ref{img:rep4_1min_trans_control} indicate that encamped fish exposed to the Control treatment never transitioned to the exploratory state over the course of the 1 minute of telemetry data. This could be explained by the fact that carp are significantly less active during daylight hours, and Repetition 4 occurred at 1500 on Day 1 of the trials.
 			
-			\begin{figure}[H]
-				\includegraphics[width=\textwidth]{trans_rep_4_trial_5_Control.png}
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.85\textwidth]{trans_rep_4_trial_5_Control.png}
 				\caption{Rep. 4 state transition probabilities for the Control treatment.}
-				\label{img:1min_trans_control}
+				\label{img:rep4_1min_trans_control}
 			\end{figure}
-			
-			As with Figure \ref{img:1min_trans_tmnt}, we include the plots for the Control treatment and Trial 5, because it is representative of the plots for the other trials. The lower two plots of Figure \ref{img:1min_trans_control} indicate that encamped fish exposed to the Control treatment never transitioned to the exploratory state over the course of the 1 minute of telemetry data. This could be explained by the fact that carp are significantly less active during daylight hours, and Repetition 4 occurred at 1500 on Day 1 of the trials.
 			
 		\subsubsection{Repetition 6, 1-Minute Model}
+		
+			For Repetition 6, the top model was $\sim$Trial+dB+Trt, and we generated the same collection of 20 plots as we did for the Repetition 4 1-minute model. These plots do not suggest the same pattern as seen in Figures \ref{img:rep4_1min_trans_tmnt} and \ref{img:rep4_1min_trans_control}. On the contrary, they suggest that dB had very little effect on the probability of changing behavioral states. 
+			
+			In particular, the plots for parameters $\lambda_{2, 1}$ and $\lambda_{2, 2}$ indicate, that encamped individuals were almost certain to stay encamped, regardless of dB level, sound treatment type, or trial; that is, $\lambda_{2, 1}$ was always close to 0, and equivalently $\lambda_{2, 2}$ was always close to 1. The exploratory individuals were more likely to switch states, in the sense that the parameter $\lambda_{1, 2}$ was often greater than 0. However, these parameters were not sensitive to differences in dB values. We include Figure \ref{img:rep6_1min_trans_tmnt} here, which has the same qualitative traits as the other plots for this repetition.
+			
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.85\textwidth]{trans_rep_6_trial_3_square.png}
+				\caption{Rep. 6 state transition probabilities; a representative example.}
+				\label{img:rep6_1min_trans_tmnt}				
+			\end{figure}
 		
 		\subsubsection{Repetition 7, 1-Minute Model}
 		
