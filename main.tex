@@ -309,7 +309,7 @@
 			
 			\begin{figure}
 				\centering
-				\includegraphics[width=0.85\textwidth]{trans_rep_6_trial_3_square.png}
+				\includegraphics[width=0.85\textwidth]{trans_rep_6_trial_3_Square.png}
 				\caption{Rep. 6 state transition probabilities; a representative example.}
 				\label{img:rep6_1min_trans_tmnt}				
 			\end{figure}
@@ -318,15 +318,33 @@
 		
 			For Repetition 7, the top model was $\sim$Trial+Temp+dB, which means that we only generated 5 plots, one for each level of the Trial covariate; we set the value of the Temp covariate to be the mean temperature of the dataset.
 			
-			The qualitative features of these plots are very similar to that of the Repetition 6, 1-minute model above: the dB covariate had very little effect (if any) on the transition probabilities, and for the most part. A slight difference is that encamped individuals were more likely to change states in Trials 3 and 5, but not significantly so; otherwise, the plots in Figure \ref{img:rep6_1min_trans_tmnt} are representative of Repetition 7 as well.
+			The qualitative features of these plots are very similar to that of the Repetition 6, 1-minute model above: the dB covariate had very little effect (if any) on the transition probabilities. A slight difference from Repetition 6 is that encamped individuals were more likely to change states in Trials 3 and 5, but not significantly so; otherwise, the plots in Figure \ref{img:rep6_1min_trans_tmnt} are representative of Repetition 7.
 		
 		\subsubsection{Repetition 12, 1-Minute Model}
 		
+			For Repetition 12, the top model was $\sim$Trial+dB+Treatment, so we generated the same collection of plots as we did for the 1-minute models of Repetition 4 and 6. These plots show a stronger effect of dB on the transition probabilities than in Repetitions 6 and 7, but it is in the opposite direction as Repetition 4. That is, higher dB values were associated with a higher likelihood of being in an exploratory state; this result is true for the Control treatment as well (see Figures \ref{img:rep12_1min_trans_tmnt} and \ref{img:rep12_1min_trans_control}).
 			
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.85\textwidth]{trans_rep_12_trial_2_Square.png}
+				\caption{Rep. 6 state transition probabilities; a representative example.}
+				\label{img:rep12_1min_trans_tmnt}				
+			\end{figure}
+			
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.85\textwidth]{trans_rep_12_trial_1_Control.png}
+				\caption{Rep. 12 state transition probabilities for the Control treatment.}
+				\label{img:rep12_1min_trans_control}				
+			\end{figure}
 		
 		\subsubsection{Repetition 4, 5-Minute Model}
 		
+			The top model for this repetition was $\sim$Trial+dB+Treatment, as it was for the 1-minute model. The plots for this repetition show the same behavior as for the 1-minute model (see Figures \ref{img:rep4_1min_trans_tmnt} and \ref{img:rep4_1min_trans_control}, with higher dB values being associated with lower a lower probability of exploratory behavior
+		
 		\subsubsection{Repetition 9, 5-Minute Model}
+		
+			The top model for this repetition was $\sim$Trial+dB+Treatment
 		
 		\subsubsection{Repetition 14, 30-Minute Model}
 		
