@@ -266,6 +266,25 @@
 				\label{tbl:frm_freq}
 			\end{table}
 			
+		Table \ref{tbl:cov_freq} gives the frequency which the five covariates \emph{Trial, Temp, dB, Diel} and \emph{Trt} appear in the top models for each time frame.
+		
+		\begin{table}[H]
+			\centering
+			\begin{tabular}{|c|c|c|c|c|}
+				\hline
+				\thead{Covariate} & \makecell{\thead{1min} \\ Frequency} & \makecell{\thead{5min \\ Frequency}} & \makecell{\thead{30min \\ Frequency}} & \thead{Total} \\
+				\hline
+				\emph{Trial} & & & & \\
+				\emph{Temp} & & & & \\
+				\emph{Diel} & & & & \\
+				\emph{dB} & & & & \\
+				\emph{Trt} & & & & \\
+				\hline
+			\end{tabular}
+			\caption{Frequency of covariates in top models.}
+			\label{tbl:cov_freq}
+		\end{table}
+			
 	\subsection{State Transition Probabilities}
 	
 		To determine whether the covariate \emph{dB} had a common effect on carp behavior, we investigated plots of the state transition probabilities $\lambda_{i, j}$, with $i, j \in \{1, 2\}$, as a function of dB (re 1 $\mu$Pa). The probabilities $\lambda_{i, j}$ are modeled as multinomial logit functions, the details of which are given in \cite{Michelot2016}. These plots indicate how the probability of changing behavioral states is correlated with changes to dB levels in the pond. Recall that $\lambda_{i, j}$ gives the probability that an individual will be in behavioral state $j$ at time $n+1$, given that they are in behavioral state $i$ at time $n$. Also, since we only consider two behavioral states, we have the identities
@@ -370,6 +389,10 @@
 		The top model for this repetition was $\sim$Trial+dB+Treatment, and higher dB values were not strongly associated with any behavioral patterns. The parameters $\lambda_{1, 1}$ and $\lambda_{2, 2}$ were near 1 throughout the range of dB values in the data; equivalently, the parameters $\lambda_{1, 2}$ and $\lambda_{2, 1}$ were near zero in the same range. In other words, individuals were highly likely to stay in the same state regardless of the dB level they experienced.
 
 \section{Conclusion}
+
+	We investigated the effect of acoustic deterrents on carp behavior, by fitting hidden Markov models with many different combinations of environmental covariates to datasets for three different time frames: for 1, 5, and 30 minutes after the deterrent turned on. We did this for 24 separate ``repetitions" of the deterrents over the course of 3-day trials. To determine whether acoustic deterrents were effective at changing carp behavior, we tabulated the covariates which appear in the 24 top models (see Figures \ref{tbl:aic_scores} and \ref{tbl:frm_freq}), and by analyzing the qualitative patterns in plots of the behavioral state transition probabilities.
+	
+	
 
 \bibliographystyle{apalike}
 \bibliography{references}
