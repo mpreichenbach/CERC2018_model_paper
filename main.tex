@@ -160,7 +160,7 @@
 				&= \sum_{i = 1}^n w_i(x_0) z(x_i)
 			\end{align*}
 			
-			Further details on how the weights $w_i(x_0)$ at a given point can be computed are given in CITE A BOOK HERE.
+			Details on how the weights $w_i(x_0)$ at a given point are computed are given in \cite{Bailey1995}.
 			
 			For our purposes, sound intensity readings (dB re 1 $\mu$Pa) were recorded once before the trials began, at 98 locations in each pond, and for each sound treatment except the Control. We used these values, along with an automatic kriging process, to interpolate sound intensity values which we incorporated into the movement tracks in each pond. Although there were 24 sound repetitions during the study study, intensity readings were not taken each time the sound turned on. Hence, we assumed that the readings taken before the the trials began were representative of the readings during each repetition. In order to incorporate reasonable values for sound intensity in the Control ponds, we sampled from a Gaussian random variable with parameters given in \cite{Wysocki2007} for a concrete pond.
 			
@@ -399,6 +399,8 @@
 	The values in Table \ref{tbl:cov_freq} suggest that the Trial and Treatment (\emph{Trt}) covariates are the strongest predictors of behavior in the models, with Temperature becoming a stronger predictor during longer time frames. However, the primary covariate of interest for this study, dB, appears to be the weakest predictor of behavior as it never occurs in more than 4/24 of the formulas of the top models. Additionally, Table \ref{tbl:cov_freq} provides some indication that dB is a poorer predictor over longer time frames, perhaps because individuals become habituated to the acoustic deterrents. 
 	
 	The weakness of dB as a predictor of behavior could be a consequence of the study design, because dB values were recorded once before the trials commenced. For the model fitting, we incorporated values into the fish location data using the kriging interpolation method. By doing this, we made the assumption that dB values throughout the pond during each repetition would be similar to when they were recorded the first time. In future studies, we plan to record dB levels for each sound repetition, in the hope that this provides a more accurate gauge of sound intensity which each fish experiences.
+	
+	For the sound repetitions in which dB occurred as a covariate in the top model, we also analyzed the plots of the behavioral state transition probabilities as a function of dB. These provided mixed results
 
 \bibliographystyle{apalike}
 \bibliography{references}
