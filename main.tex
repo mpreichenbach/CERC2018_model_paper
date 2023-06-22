@@ -121,7 +121,15 @@
 
 	\subsection{Hidden Markov Models (HMMs)}
 	
-		HMMs are particularly well-suited to studying the behavioral changes of fish in response to environmental stimuli, because they attempt to identify hidden ``states" given observed data \cite{Rabiner1989}. We assume that the fish exhibit two behavioral states, which we denote ``exploratory" and ``encamped"; the former is characterized by directed motion at a greater speed, and the latter is characterized by random (uniform) motion at slower speeds. These two states describe motion in many species, such as elk \cite{Morales2004, Fryxell2008}, gray brocket deer \cite{Grotta-Neto2019}, elephants \cite{Roever2014, Vogel2019}, and grey seals \cite{Breed2009}. Though these are mammalian examples, with only one aquatic species, a visual inspection of the carp telemetry data indicates that individuals do exhibit encamped and exploratory behaviors as well.
+		HMMs are particularly well-suited to studying the behavioral changes of fish in response to environmental stimuli, because they attempt to identify hidden ``states" given observed data \cite{Rabiner1989}. We assume that the fish exhibit two behavioral states, which we denote ``exploratory" and ``encamped"; the former is characterized by directed motion at a greater speed, and the latter is characterized by random (uniform) motion at slower speeds (see Figure \ref{img:track_states}).
+		
+		\begin{figure}
+			\includegraphics[width=\textwidth]{track_states.png}
+			\caption{Behavioral states of a 5-minute track, as predicted by an application of the Viterbi algorithm to a fitted HMM model.}
+			\label{img:track_states}
+		\end{figure}
+		
+		These two states describe motion in many species, such as elk \cite{Morales2004, Fryxell2008}, gray brocket deer \cite{Grotta-Neto2019}, elephants \cite{Roever2014, Vogel2019}, and grey seals \cite{Breed2009}. Though these are mammalian examples, with only one aquatic species, a visual inspection of the carp telemetry data indicates that individuals do exhibit encamped and exploratory behaviors as well.
 		
 		We fit HMMs using the \texttt{fitHMM} function from the \texttt{momentuHMM} package. These models consist of probability distributions for step lengths and turning angle for each state, and a state transition matrix. In general, HMMs may consist of an arbitrary number of states $n$, but we investigated the case when $n = 2$. We modeled the step lengths as as Gamma distributions, and the turning angles as von Mises distributions.
 	
@@ -131,7 +139,7 @@
 		\[2^n = \sum_{i=0}^n {n \choose i},\]
 		where $i$ is the number of covariates to include in a formula. For the sound repetitions which contain a sunrise or sunset, we use all five covariates, so $n = 5$ covariates. Otherwise, we ignore the formulas with Diel, in which case $n = 4$. Also, we take $i = 0$ to be the intercept-only formula $\sim$1.
 		
-		The parameters of the HMMs which we modeled as linear functions of the covariates were the mean step lengths, $\mu_1$ and $\mu_2$; the mean turning angles, $\theta_1$ and $\theta_2$, and the statetransition probabilities $\lambda_{1 \to 2}$ and $\lambda_{2 \to 1}$. Here, $\mu_i$ and $\theta_i$ are the mean step length and turning angle, respectively, for behavioral state $i = 1, 2$, and $\lambda_{i, j}$ denotes the probability that an individual switches from state $i$ to state $j$ during the time step, which were modeled as multinomial logit functions \cite{Michelot2016}. We used the intercept-only formula $\sim$1 to model the shape parameters of the Gamma and von Mises distributions in each HMM.
+		The parameters of the HMMs which we modeled as linear functions of the covariates were the mean step lengths, $\mu_1$ and $\mu_2$; the mean turning angles, $\theta_1$ and $\theta_2$, and the state transition probabilities $\lambda_{1 \to 2}$ and $\lambda_{2 \to 1}$. Here, $\mu_i$ and $\theta_i$ are the mean step length and turning angle, respectively, for behavioral state $i = 1, 2$, and $\lambda_{i, j}$ denotes the probability that an individual switches from state $i$ to state $j$ during the time step, which were modeled as multinomial logit functions \cite{Michelot2016}. We used the intercept-only formula $\sim$1 to model the shape parameters of the Gamma and von Mises distributions in each HMM.
 		
 		\subsubsection{Factor Covariates}
 		
@@ -154,12 +162,10 @@
 			The kriging involves two steps: fitting a model to the variogram plot, then using this model to find weights which are used to interpolate missing values. The variogram plots half the mean-squared difference between the values at all pairs of points, against the distance between each pair. The \texttt{automap::autoKrige} function automatically determines which model fits the variogram best, by comparing fits of spherical, exponential, Gaussian, and a model from the Matern family of functions \cite{Hiemstra2008}. 
 			
 			Using whichever models fits the variogram best, the weights $w_i = w_i(x_0)$ can be calculated for each any unobserved point $x_0$, and the interpolated value $\hat z(x_0)$ is then a linear combination of these weights with the observed values $z(x_i)$, for $i = 1, \ldots, n$:
-			
 			\begin{align*}
 				\hat z(x_0) &= \begin{bmatrix} w_1 & w_2 & \cdots & w_n \end{bmatrix} \begin{bmatrix} z(x_1) \\ z(x_2) \\ \vdots \\ z(x_n) \end{bmatrix} \\
 				&= \sum_{i = 1}^n w_i(x_0) z(x_i)
 			\end{align*}
-			
 			Details on how the weights $w_i(x_0)$ at a given point are computed are given in \cite{Bailey1995}.
 			
 			For our purposes, sound intensity readings (dB re 1 $\mu$Pa) were recorded once before the trials began, at 98 locations in each pond, and for each sound treatment except the Control. We used these values, along with an automatic kriging process, to interpolate sound intensity values which we incorporated into the movement tracks in each pond. Although there were 24 sound repetitions during the study study, intensity readings were not taken each time the sound turned on. Hence, we assumed that the readings taken before the the trials began were representative of the readings during each repetition. In order to incorporate reasonable values for sound intensity in the Control ponds, we sampled from a Gaussian random variable with parameters given in \cite{Wysocki2007} for a concrete pond.
